@@ -357,7 +357,6 @@
                 </button> --}}
             </div>
         </header>
-
         <div class="table-responsive">
             <table id="classesTable" class="table table-hover w-100">
                 <thead class="bg-light-yellow">
