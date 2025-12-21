@@ -28,11 +28,11 @@
       <div class="content-wrapper d-flex align-items-center auth px-0">
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="background: #ffa5d2;">
               <div class="brand-logo">
                 <img src="../../images/logo-dark.svg" alt="logo">
               </div>
-              <h4>Hello! let's get started</h4>
+              <h4 id="greeting">Hello!</h4>
               <h6 class="font-weight-light">Sign in to continue.</h6>
               <form class="pt-3" method="POST" action="{{ route('school.login.submit') }}">
                 @csrf
@@ -54,11 +54,11 @@
                   </div>
                   <a href="#" class="auth-link text-black">Forgot password?</a>
                 </div>
-                <div class="mb-2">
+                {{-- <div class="mb-2">
                   <button type="button" class="btn btn-block btn-facebook auth-form-btn">
                     <i class="typcn typcn-social-facebook mr-2"></i>Connect using facebook
                   </button>
-                </div>
+                </div> --}}
                 <div class="text-center mt-4 font-weight-light">
                   Don't Register yet? <a href="{{ route('pages.registerschool') }}" class="text-primary">Register Your Organization</a>
                 </div>
@@ -81,6 +81,16 @@
   <script src="../../js/template.js"></script>
   <script src="../../js/settings.js"></script>
   <script src="../../js/todolist.js"></script>
+  <script>
+    const hostname = window.location.hostname;
+    const instituteName = hostname.split('.')[0];
+    const formattedInstituteName = instituteName
+      .replace(/-/g, ' ')
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    document.getElementById('greeting').textContent = `Hello! ${formattedInstituteName}`;
+  </script>
   <!-- endinject -->
    @if(session('register-success'))
         <script>

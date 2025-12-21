@@ -4,18 +4,15 @@ namespace Modules\StudentManagement\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Modules\StudentManagement\Models\Classes;
-use Exception;
 
-class SubjectManagementController extends Controller
+class AttendanceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('studentmanagement::index');
+        return view('studentmanagement::studentattendance.studentindex');
     }
 
     /**
@@ -56,35 +53,4 @@ class SubjectManagementController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id) {}
-
-
-    public function getClassSubjects($id)
-    {
-        try {
-            $class = Classes::with(['teacher', 'subjects'])->find($id);
-
-            if (!$class) {
-                return response()->json([
-                    'status' => 'error',
-                    'subjects' => [],
-                    'message' => 'Class not found.'
-                ]);
-            }
-
-            return response()->json([
-                'status' => 'success',
-                'subjects' => $class->subjects
-            ]);
-
-        } catch (Exception $e) {
-            Log::error("Subject fetch failed: ".$e->getMessage());
-
-            return response()->json([
-                'status' => 'error',
-                'subjects' => [],
-                'message' => 'Server error'
-            ]);
-        }
-    }
-
 }

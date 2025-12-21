@@ -11,6 +11,7 @@ use Modules\StudentManagement\Models\Student;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
+use Modules\StudentManagement\Models\Classes;
 use Exception;
 
 class StudentManagementController extends Controller
@@ -42,7 +43,8 @@ class StudentManagementController extends Controller
      */
     public function create()
     {
-        return view('studentmanagement::studentcreate');
+        $classes = Classes::all();
+        return view('studentmanagement::studentcreate', compact('classes'));
     }
 
     /**

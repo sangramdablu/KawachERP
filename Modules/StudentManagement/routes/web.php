@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\StudentManagement\Http\Controllers\AttendanceController;
 use Modules\StudentManagement\Http\Controllers\StudentManagementController;
 use Modules\StudentManagement\Http\Controllers\TeachersController;
 use Modules\StudentManagement\Http\Controllers\ClassManagementController;
@@ -24,11 +25,18 @@ Route::middleware(['web', NeedsTenant::class,'school.auth'])->prefix('tenant/stu
     Route::get('/{id}/edit', [StudentManagementController::class, 'edit'])->name('editstudent');
     Route::post('/update/{id}', [StudentManagementController::class, 'update'])->name('updatestudent');
 
+    // Students
     Route::get('/student-create', [StudentManagementController::class, 'create'])->name('student-create');
     Route::post('/store', [StudentManagementController::class, 'store'])->name('store');
     Route::get('/edit-list', [StudentManagementController::class, 'editList'])->name('edit.list');
     Route::get('/edit/{id}', [StudentManagementController::class, 'edit'])->name('edit');
     Route::post('/update/{id}', [StudentManagementController::class, 'update'])->name('update');
+
+    // Student Attendance
+    Route::get('/student-attendance', [AttendanceController::class, 'index'])->name('student-attendance');
+    Route::get('/teacher-attendance', [AttendanceController::class, 'index'])->name('teacher-attendance');
+    Route::get('/get-student-attendace', [AttendanceController::class, 'index'])->name('get-student-attendace');
+
 });
 
 Route::middleware(['web', NeedsTenant::class, 'school.auth'])->prefix('tenant/student')->as('tenant.student.')->group(function () {
@@ -50,9 +58,13 @@ Route::middleware(['web', NeedsTenant::class,'school.auth'])->prefix('tenant/cla
     Route::get('/class-dashboard', [ClassManagementController::class, 'index'])->name('class-index');
     Route::get('/class-create', [ClassManagementController::class, 'create'])->name('class-create');
     Route::get('/class-list', [ClassManagementController::class, 'getClasses'])->name('class-list');
+    Route::post('/class-store', [ClassManagementController::class, 'store'])->name('class-store');
 });
 
 Route::middleware(['web', NeedsTenant::class,'school.auth'])->prefix('tenant/subject')->as('tenant.subject.')->group(function () {
     Route::get('/subject-dashboard', [SubjectManagementController::class, 'index'])->name('subject-index');
     Route::get('/subject-create', [SubjectManagementController::class, 'create'])->name('subject-create');
+
+    Route::post('/class/{id}/subjects', [SubjectManagementController::class, 'getClassSubjects'])->name('subject-clalist');
+
 });

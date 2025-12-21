@@ -171,6 +171,78 @@
     .border-start-4 {
         border-left: 4px solid !important;
     }
+
+    /* Expand arrow */
+    .expand-arrow {
+        cursor: pointer;
+        color: #444;
+        font-size: 14px;
+        transition: transform 0.25s ease;
+    }
+
+    /* Rotate when expanded */
+    .expand-arrow i.rotate {
+        transform: rotate(90deg);
+    }
+
+    /* Highlight row when expanded */
+    .row-expanded {
+        background: #e6f9ff !important;
+    }
+
+    /* Subtable wrapper */
+    .sub-table-wrapper {
+        padding: 10px 0;
+        animation: glowBorder 2s infinite linear;
+    }
+
+    /* Smooth drop animation */
+    .subtable-animate {
+        animation: dropDown 0.35s ease-out;
+    }
+    /* Main container holding the connector + subtable */
+    .child-connector {
+        display: flex;
+        padding-left: 40px;
+        position: relative;
+    }
+
+    /* LONG vertical line auto-adjusts to content height */
+    .connector-vertical {
+        width: 20px;
+        border-left: 2px solid #3b82f6;
+        margin-right: 10px;
+        position: relative;
+    }
+
+    /* Horizontal elbow only at the first row */
+    .connector-vertical::after {
+        content: "";
+        position: absolute;
+        top: 22px; /* aligns perfectly with first subject row */
+        left: 0;
+        width: 15px;
+        border-top: 2px solid #3b82f6;
+    }
+
+    /* Sub-table itself */
+    .connector-content {
+        flex: 1;
+    }
+
+    @keyframes dropDown {
+        from { opacity: 0; transform: translateY(-6px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Animated glowing border */
+    @keyframes glowBorder {
+        0%   { border-color: rgba(132, 79, 193, 0.25); }
+        50%  { border-color: rgba(132, 79, 193, 0.75); }
+        100% { border-color: rgba(132, 79, 193, 0.25); }
+    }
+
+
 </style>
 
 <div class="card">
@@ -272,31 +344,31 @@
 
 <div class="card">
     <div class="card-body">
-        <header class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+        <header class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
             <h4 class="card-title mb-3">Class Statistics</h4>
             <div class="d-flex gap-3">
-                <button class="btn btn-outline-secondary d-flex align-items-center rounded-5 shadow-sm transition duration-150">
+                {{-- <button class="btn btn-outline-secondary d-flex align-items-center rounded-5 shadow-sm transition duration-150">
                     <i data-lucide="arrow-down-to-line" class="w-4 h-4 me-2"></i>
                     Export
                 </button>
                 <button id="addRowBtn" type="button" class="add-row-btn btn text-white fw-semibold py-2 px-4 rounded-pill d-flex align-items-center shadow-lg" style="background: linear-gradient(45deg, #e83e8c, #d12e7e);">
                     <i data-lucide="plus" class="fas fa-plus me-2"></i>
                     Add Class
-                </button>
+                </button> --}}
             </div>
         </header>
 
         <div class="table-responsive">
-            <table id="teachersTable" class="table table-hover w-100">
+            <table id="classesTable" class="table table-hover w-100">
                 <thead class="bg-light-yellow">
                     <tr>
+                        <th class="text-center"></th>
                         <th class="text-center">
-                            <input type="checkbox" id="selectAllTeachers">
+                            <input type="checkbox" id="selectAllClasses">
                         </th>
-                        <th>ID</th> 
                         <th>Class Name</th>
                         <th>Class Teacher</th>
-                        <th>Students</th>
+                        <th>Section</th>
                         <th>Subjects</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -308,215 +380,6 @@
     </div>
 </div>
 
-    <div class="card">
-        <div class="card-body">
-            
-            <div class="container-fluid p-0">
-                
-                <!-- HEADER AND QUICK ACTIONS -->
-                <header class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
-                    <h1 class="fs-3 fw-bolder text-dark mb-3 mb-md-0">
-                        Classes Management Dashboard
-                    </h1>
-                    <div class="d-flex gap-3">
-                        <button class="btn btn-outline-secondary d-flex align-items-center rounded-3 shadow-sm transition duration-150">
-                            <i data-lucide="arrow-down-to-line" class="w-4 h-4 me-2"></i>
-                            Export Data
-                        </button>
-                        <button class="btn btn-primary d-flex align-items-center rounded-3 shadow-sm transition duration-150">
-                            <i data-lucide="plus" class="w-4 h-4 me-2"></i>
-                            Add New Class
-                        </button>
-                    </div>
-                </header>
-
-                <!-- METRIC CARDS -->
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 mb-4">
-                    
-                    <!-- Card 1: Total Classes -->
-                    <div class="col">
-                        <div class="dashboard-card border-start-4 border-primary">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <span class="metric-label">Total Classes</span>
-                                <i data-lucide="school" class="w-6 h-6 text-primary"></i>
-                            </div>
-                            <p class="metric-value text-primary">12</p>
-                            <p class="text-xs text-success mt-1">+2 new this year</p>
-                        </div>
-                    </div>
-
-                    <!-- Card 2: Total Students -->
-                    <div class="col">
-                        <div class="dashboard-card border-start-4 border-success">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <span class="metric-label">Total Students</span>
-                                <i data-lucide="users" class="w-6 h-6 text-success"></i>
-                            </div>
-                            <p class="metric-value text-success">485</p>
-                            <p class="text-xs text-success mt-1">+15% vs last year</p>
-                        </div>
-                    </div>
-
-                    <!-- Card 3: Class Teachers Allocated -->
-                    <div class="col">
-                        <div class="dashboard-card border-start-4 border-warning">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <span class="metric-label">Teachers Allocated</span>
-                                <i data-lucide="graduation-cap" class="w-6 h-6 text-warning"></i>
-                            </div>
-                            <p class="metric-value text-warning">11 / 12</p>
-                            <p class="text-xs text-danger mt-1">1 class unassigned</p>
-                        </div>
-                    </div>
-
-                    <!-- Card 4: Average Class Size -->
-                    <div class="col">
-                        <div class="dashboard-card border-start-4 border-info">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <span class="metric-label">Average Class Size</span>
-                                <i data-lucide="bar-chart" class="w-6 h-6 text-info"></i>
-                            </div>
-                            <p class="metric-value text-info">40.4</p>
-                            <p class="text-xs text-secondary mt-1">Target: 35 students</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- MAIN CONTENT AREA: Chart and Class List -->
-                <div class="row g-4">
-
-                    <!-- COLUMN 1 & 2: Class List -->
-                    <div class="col-lg-8">
-                        <div class="dashboard-card p-0">
-                            <div class="p-4 border-bottom d-flex justify-content-between align-items-center">
-                                <h2 class="fs-5 fw-semibold text-dark mb-0">List of Active Classes (12)</h2>
-                                <input type="text" placeholder="Search classes or teachers..." class="form-control form-control-sm w-auto">
-                            </div>
-                            
-                            <div class="table-responsive custom-scroll">
-                                <table class="table table-hover table-sm align-middle mb-0">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th class="px-4 py-3 text-start text-xs text-secondary text-uppercase fw-medium">Class Name</th>
-                                            <th class="px-4 py-3 text-start text-xs text-secondary text-uppercase fw-medium">Class Teacher</th>
-                                            <th class="px-4 py-3 text-start text-xs text-secondary text-uppercase fw-medium">Students</th>
-                                            <th class="px-4 py-3 text-start text-xs text-secondary text-uppercase fw-medium">Subjects</th>
-                                            <th class="px-4 py-3 text-center text-xs text-secondary text-uppercase fw-medium">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Class Item 1 -->
-                                        <tr class="transition duration-100">
-                                            <td class="px-4 py-3 text-sm fw-semibold text-primary">Grade 10 - A</td>
-                                            <td class="px-4 py-3 text-sm text-secondary">Mrs. Jane Doe</td>
-                                            <td class="px-4 py-3 text-sm text-secondary">42</td>
-                                            <td class="px-4 py-3 text-sm text-secondary">8</td>
-                                            <td class="px-4 py-3 text-center text-sm fw-medium">
-                                                <button onclick="console.log('Edit Grade 10-A')" class="btn btn-sm btn-outline-primary p-1 rounded-circle border-0 me-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
-                                                <button onclick="console.log('Delete Grade 10-A')" class="btn btn-sm btn-outline-danger p-1 rounded-circle border-0"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-                                            </td>
-                                        </tr>
-                                        <!-- Class Item 2 -->
-                                        <tr class="transition duration-100">
-                                            <td class="px-4 py-3 text-sm fw-semibold text-primary">Grade 5 - B</td>
-                                            <td class="px-4 py-3 text-sm text-secondary">Mr. John Smith</td>
-                                            <td class="px-4 py-3 text-sm text-secondary">38</td>
-                                            <td class="px-4 py-3 text-sm text-secondary">6</td>
-                                            <td class="px-4 py-3 text-center text-sm fw-medium">
-                                                <button onclick="console.log('Edit Grade 5-B')" class="btn btn-sm btn-outline-primary p-1 rounded-circle border-0 me-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
-                                                <button onclick="console.log('Delete Grade 5-B')" class="btn btn-sm btn-outline-danger p-1 rounded-circle border-0"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-                                            </td>
-                                        </tr>
-                                        <!-- Class Item 3 (Unassigned) -->
-                                        <tr class="table-danger bg-opacity-10 transition duration-100">
-                                            <td class="px-4 py-3 text-sm fw-semibold text-primary">Grade 1 - C</td>
-                                            <td class="px-4 py-3 text-sm text-danger fw-bold">Unassigned</td>
-                                            <td class="px-4 py-3 text-sm text-secondary">30</td>
-                                            <td class="px-4 py-3 text-sm text-secondary">5</td>
-                                            <td class="px-4 py-3 text-center text-sm fw-medium">
-                                                <button onclick="console.log('Assign Grade 1-C')" class="btn btn-sm btn-outline-success p-1 rounded-circle border-0 me-1"><i data-lucide="link" class="w-4 h-4"></i></button>
-                                                <button onclick="console.log('Delete Grade 1-C')" class="btn btn-sm btn-outline-danger p-1 rounded-circle border-0"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-                                            </td>
-                                        </tr>
-                                        <!-- More items... -->
-                                        <tr class="transition duration-100">
-                                            <td class="px-4 py-3 text-sm fw-semibold text-primary">Grade 8 - A</td>
-                                            <td class="px-4 py-3 text-sm text-secondary">Dr. Alice Chen</td>
-                                            <td class="px-4 py-3 text-sm text-secondary">45</td>
-                                            <td class="px-4 py-3 text-sm text-secondary">7</td>
-                                            <td class="px-4 py-3 text-center text-sm fw-medium">
-                                                <button onclick="console.log('Edit Grade 8-A')" class="btn btn-sm btn-outline-primary p-1 rounded-circle border-0 me-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
-                                                <button onclick="console.log('Delete Grade 8-A')" class="btn btn-sm btn-outline-danger p-1 rounded-circle border-0"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                            <div class="p-3 border-top text-sm text-secondary d-flex justify-content-between align-items-center">
-                                <span>Showing 1 to 4 of 12 classes</span>
-                                <div class="d-flex gap-1">
-                                    <button class="btn btn-sm btn-outline-secondary">Prev</button>
-                                    <button class="btn btn-sm btn-primary">1</button>
-                                    <button class="btn btn-sm btn-outline-secondary">2</button>
-                                    <button class="btn btn-sm btn-outline-secondary">3</button>
-                                    <button class="btn btn-sm btn-outline-secondary">Next</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- COLUMN 3: Student Distribution Chart -->
-                    <div class="col-lg-4">
-                        <div class="dashboard-card">
-                            <h2 class="fs-5 fw-semibold text-dark mb-4">Student Distribution by Grade</h2>
-                            
-                            <!-- Simulated Chart Area -->
-                            <div class="h-64 d-flex flex-column justify-content-end p-2 bg-light rounded-3 border border-secondary border-opacity-25">
-                                <p class="text-xs text-secondary mb-2 opacity-75">Total Students: 485</p>
-                                <div class="d-flex justify-content-around align-items-end h-100">
-                                    <!-- Bar 1 (Height represents count) -->
-                                    <div class="bg-primary rounded-top-3 transition-all duration-500 ease-out" style="width: 2rem; height: 90%;" title="Grade 10: 120 Students"></div>
-                                    <!-- Bar 2 -->
-                                    <div class="bg-primary opacity-75 rounded-top-3 transition-all duration-500 ease-out" style="width: 2rem; height: 70%;" title="Grade 9: 90 Students"></div>
-                                    <!-- Bar 3 -->
-                                    <div class="bg-primary opacity-50 rounded-top-3 transition-all duration-500 ease-out" style="width: 2rem; height: 50%;" title="Grade 8: 70 Students"></div>
-                                    <!-- Bar 4 -->
-                                    <div class="bg-primary opacity-25 rounded-top-3 transition-all duration-500 ease-out" style="width: 2rem; height: 30%;" title="Grade 7: 50 Students"></div>
-                                    <!-- Bar 5 -->
-                                    <div class="bg-primary opacity-10 rounded-top-3 transition-all duration-500 ease-out" style="width: 2rem; height: 10%;" title="Primary Grades: 155 Students"></div>
-                                </div>
-                                <div class="d-flex justify-content-around fs-6 fw-semibold mt-2 text-secondary">
-                                    <span>10</span>
-                                    <span>9</span>
-                                    <span>8</span>
-                                    <span>7</span>
-                                    <span>1-6</span>
-                                </div>
-                            </div>
-
-                            <div class="mt-4">
-                                <h3 class="fs-6 fw-semibold text-dark mb-2">Highest Enrollment:</h3>
-                                <p class="text-sm text-secondary">Grade 10 (120 Students)</p>
-                                <p class="text-sm text-secondary mt-1">Enrollment Gap (10 vs 9): 30 Students</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="mt-4 alert alert-warning border-start border-4 border-warning shadow-sm rounded-3">
-                    <h3 class="fs-6 fw-semibold text-warning d-flex align-items-center mb-1">
-                        <i data-lucide="alert-triangle" class="w-5 h-5 me-2"></i>
-                        Action Required
-                    </h3>
-                    <p class="text-sm text-warning mb-0">Class Grade 1 - C currently has no assigned class teacher. Please assign a teacher immediately to ensure smooth operation.</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    
     <!-- Script to load Lucide icons library -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
@@ -528,76 +391,300 @@
 
 @push('scripts')
 <script>
-$(document).ready(function(){
-
-    const table = $('#teachersTable').DataTable({
-        ajax:{
-            url:'{{ route("tenant.class.class-list") }}',
-            dataSrc:'data'
+$(document).ready(function () {
+        const table = $('#classesTable').DataTable({
+        ajax: {
+            url: '{{ route("tenant.class.class-list") }}',
+            dataSrc: function (json) {
+                if (json.status !== "success") {
+                    showError("Error", "Unable to load classes.");
+                    return [];
+                }
+                return json.data;
+            },
+            error: function () {
+                showError("Error", "Server error while fetching classes.");
+            }
         },
-        columns:[
+        columns: [
             {
-                data:null,
-                className:"text-center",
-                orderable:false,
-                render:data=>`<input type="checkbox" class="class-checkbox" value="${data.id}">`
+                className: "details-control text-center",
+                orderable: false,
+                data: null,
+                defaultContent: `
+                    <span class="expand-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </span>
+                `
             },
-            { data:"id", className:"text-center", width:"6%" },
-
-            { data:"name" },
-
             {
-                data:null,
-                render:d=> d.teacher_first_name 
-                    ? `${d.teacher_first_name} ${d.teacher_last_name}`
-                    : `<span class="text-muted">No Teacher Assigned</span>`
+                data: null,
+                orderable: false,
+                className: "text-center",
+                render: data => `<input type="checkbox" class="class-row-checkbox" value="${data.id}">`
             },
+            { data: "class_name" },
 
             {
-                data:"total_students",
-                className:"text-center",
-                render:d=> `<span class="badge bg-primary p-2">${d}</span>`
-            },
-
-            {
-                data:"total_subjects",
-                className:"text-center",
-                render:d=> `<span class="badge bg-info p-2">${d}</span>`
+                data: null,
+                className: "text-center",
+                render: row => row.teacher ? `${row.teacher.first_name} ${row.teacher.last_name}` : `<span class="text-muted">—</span>`
             },
 
+            { data: "section", className: "text-center" },
+            { data: "total_subjects", className: "text-center" },
+
             {
-                data:"status",
-                className:"text-center",
-                render:function(status){
-                    if(status=="active") 
-                        return `<svg width="16" height="16" fill="#28a745"><circle cx="8" cy="8" r="7"/></svg>`;
-                    else 
-                        return `<svg width="16" height="16" fill="#ffc107"><circle cx="8" cy="8" r="7"/></svg>`;
+                data: "status",
+                className: "text-center",
+                render: status => {
+                    let color = status === "active" ? "success" : "secondary";
+                    return `<span class="badge bg-${color}">${status}</span>`;
                 }
             },
-
             {
-                data:null,
-                orderable:false,
-                className:"text-center",
-                render:data=>`
-                    <button class="btn btn-info btn-sm mr-2" data-id="${data.id}">View</button>
-                    <button class="btn btn-success btn-sm mr-2" data-id="${data.id}">Edit</button>
-                    <button class="btn btn-danger btn-sm" data-id="${data.id}">Delete</button>
-                `
+                data: null,
+                className: "text-center",
+                orderable: false,
+                render: data => `
+                    <div class="d-flex justify-content-center align-items-center">
+                        <!-- View Button with eye animation -->
+                        <button type="button" class="btn btn-link p-1 mr-1 border-0 text-info action-view" title="View" data-id="${data.id}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="eye-icon">
+                                <path fill="currentColor" d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0z"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Edit Button with pencil animation -->
+                        <button type="button" class="btn btn-link p-1 mr-1 border-0 text-success action-edit" title="Edit" data-id="${data.id}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="pencil-icon">
+                                <path fill="currentColor" d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83l3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Delete Button with trash animation -->
+                        <button type="button" class="btn btn-link p-1 border-0 text-danger action-delete" title="Delete" data-id="${data.id}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48" class="trash-icon">
+                                <polygon fill="#9575cd" points="32,10 28,6 20,6 16,10"></polygon>
+                                <path fill="#9575cd" d="M11,10v30c0,2.2,1.8,4,4,4h18c2.2,0,4-1.8,4-4V10H11z"></path>
+                                <path fill="#7454b3" d="M24.5,39h-1c-0.8,0-1.5-0.7-1.5-1.5v-19c0-0.8,0.7-1.5,1.5-1.5h1c0.8,0,1.5,0.7,1.5,1.5v19 C26,38.3,25.3,39,24.5,39z"></path>
+                                <path fill="#7454b3" d="M31.5,39L31.5,39c-0.8,0-1.5-0.7-1.5-1.5v-19c0-0.8,0.7-1.5,1.5-1.5l0,0c0.8,0,1.5,0.7,1.5,1.5v19 C33,38.3,32.3,39,31.5,39z"></path>
+                                <path fill="#7454b3" d="M16.5,39L16.5,39c-0.8,0-1.5-0.7-1.5-1.5v-19c0-0.8,0.7-1.5,1.5-1.5l0,0c0.8,0,1.5,0.7,1.5,1.5v19 C18,38.3,17.3,39,16.5,39z"></path>
+                                <path fill="#b39ddb" d="M11,8h26c1.1,0,2,0.9,2,2v2H9v-2C9,8.9,9.9,8,11,8z"></path>
+                            </svg>
+                        </button>
+                    </div>`
             }
         ],
-
-        responsive:true,
-        pageLength:10,
-        order:[[1,'desc']]
+        responsive: true,
+        pageLength: 10,
+        dom: '<"top"i>rt<"bottom"lp><"clear">',
+        order: [[1, 'desc']],
+        language: {
+            info: "Showing _START_ to _END_ of _TOTAL_ classes",
+            paginate: {
+                next: '<i class="fas fa-chevron-right"></i>',
+                previous: '<i class="fas fa-chevron-left"></i>'
+            }
+        },
+        initComplete: function () {
+            $('.dataTables_paginate .pagination').addClass('justify-content-end');
+        }
+    });
+    $('#selectAllClasses').on('click', function () {
+        $('.class-row-checkbox').prop('checked', this.checked);
+    });
+    $('#classesTable tbody').on('change', '.class-row-checkbox', function () {
+        $('#selectAllClasses').prop(
+            'checked',
+            $('.class-row-checkbox:checked').length === $('.class-row-checkbox').length
+        );
     });
 
-    // Select All Handling
-    $('#selectAllTeachers').on('click',function(){
-        $('.class-checkbox').prop('checked',this.checked);
+    $('#classesTable tbody').on('click', 'td.details-control', function () {
+        let tr = $(this).closest('tr');
+        let row = table.row(tr);
+        tr.find(".expand-arrow i").addClass("rotate");
+        // If already open → close it
+        if (row.child.isShown()) {
+            row.child.hide();
+            tr.find(".expand-arrow i").removeClass("rotate");
+            tr.removeClass('row-expanded');
+            return;
+        }
+        // Otherwise, open it
+        tr.addClass('row-expanded');
+        let classId = row.data().id;
+        showLoader(["Loading subjects..."]);
+        $.ajax({
+            url: "{{ route('tenant.subject.subject-clalist', ['id' => 'CLASS_ID']) }}"
+                .replace('CLASS_ID', classId),
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                hideLoader();
+                if (!res.subjects || res.subjects.length === 0) {
+                    row.child(`
+                        <div class="sub-table-wrapper subtable-animate">
+                            <p class="text-muted mb-0">No subjects assigned to this class.</p>
+                        </div>
+                    `).show();
+                    return;
+                }
+                let html = buildSubjectSubtable(res.subjects);
+                row.child(`
+                    <div class="child-connector">
+                        <div class="connector-vertical"></div>
+                        <div class="connector-content sub-table-wrapper subtable-animate">
+                            ${html}
+                        </div>
+                    </div>
+                `).show();
+            },
+            error: function () {
+                hideLoader();
+                showError("Error", "Unable to load subjects.");
+            }
+        });
     });
+
+
+    // Build sub-table rows
+    function buildSubjectSubtable(subjects) {
+        if (!subjects.length) {
+            return `<p class="text-muted p-2">No subjects found for this class.</p>`;
+        }
+        let rows = subjects.map(s => {
+            let color = s.status === "active" ? "success" : "secondary";
+            return `
+                <tr>
+                    <td>${s.subject_name}</td>
+                    <td>${s.subject_code}</td>
+                    <td>${s.credit_hours}</td>
+                    <td><span class="badge bg-${color}">${s.status}</span></td>
+                </tr>
+            `;
+        }).join("");
+
+        return `
+            <table class="table table-bordered sub-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Subject Name</th>
+                        <th class="text-center">Subject Code</th>
+                        <th class="text-center">Credit Hours</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+            </table>
+        `;
+    }
+
+    // Open Add Class Modal
+    $('#addRowBtn').on('click', function () {
+
+        $('#modalTitle').text("Add New Class");
+        $('#modalBody').html(`
+            <form id="addClassForm">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Class Name</label>
+                    <input type="text" name="class_name" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Class Code</label>
+                    <input type="text" name="class_code" class="form-control">
+                </div>  
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Section</label>
+                    <input type="text" name="section" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Class Teacher</label>
+                    <select name="class_teacher_id" id="teacherSelect" class="form-control">
+                        <option value="">Select Teacher</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Description</label>
+                    <textarea name="description" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Status</label>
+                    <select name="status" class="form-control">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-2 w-100">Save Class</button>
+            </form>
+        `);
+        openSidebar();
+    });
+
+    function openSidebar() {
+        $('#sideModal').addClass('active');
+        $('#sidebarOverlay').addClass('active');
+    }
+    function closeSidebar() {
+        $('#sideModal').removeClass('active');
+        $('#sidebarOverlay').removeClass('active');
+    }
+
+    $(document).on('submit', '#addClassForm', function(e) {
+        e.preventDefault();
+        showLoader(["Creating Class..."]);
+        let formData = new FormData(this);
+        formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+        $.ajax({
+            url: "{{ route('tenant.class.class-store') }}",
+            method: "POST",
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                hideLoader();
+
+                if (res.status === "success") {
+                    closeSidebar();
+                    $('#classesTable').DataTable().ajax.reload();
+                    showSuccess("Success", "Class added successfully!");
+                }
+            },
+            error: function (xhr) {
+                hideLoader();
+
+                if (xhr.status === 422) {
+                    let errors = xhr.responseJSON.errors;
+                    let firstError = Object.values(errors)[0][0];
+                    showError("Validation Error", firstError);
+                } else {
+                    showError("Error", "Failed to add class.");
+                }
+            }
+        });
+    });
+
+
+
+
+
+
 
 });
+
+
 </script>
 @endpush

@@ -60,6 +60,21 @@
                     "route": "tenant.subject.subject-create"
                 }
             ]
+        },
+        {
+            "title": "Attendance",
+            "icon": "typcn typcn-book",
+            "collapse_id": "SubjectManagementMenu",
+            "submenus": [
+                {
+                    "title": "Student Attendance",
+                    "route": "tenant.student.student-attendance"
+                },
+                {
+                    "title": "Teacher Attendance",
+                    "route": "tenant.student.teacher-attendance"
+                }
+            ]
         }
     ],
     "alias": "studentmanagement",

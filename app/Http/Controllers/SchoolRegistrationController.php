@@ -103,42 +103,29 @@ class SchoolRegistrationController extends Controller
                 Log::error("Login failed: No tenant detected.");
                 return back()->withErrors(['email' => 'Invalid tenant domain']);
             }
-
             Log::info("Tenant identified: {$tenant->school_name} (ID: {$tenant->id})");
-
             $admin = Admins::on('tenant')->where('email', $request->email)->first();
-
             if ($admin) {
                 Log::info("Admin found: {$admin->email}. Checking password...");
-
                 if (Hash::check($request->password, $admin->password)) {
-
                     Log::info("Admin password correct. Logging in admin: {$admin->email}");
-
                     Session::put('tenant_id', $tenant->id);
                     Session::put('tenant_name', $tenant->school_name);
-
                     Auth::guard('school')->login($admin);
                     return redirect()->route('school.dashboard');
                 } else {
                     Log::warning("Admin password incorrect for email: {$admin->email}");
                 }
             }
-
             Log::info("Checking student login for email: {$request->email}");
-
             $student = Student::on('tenant')->where('email', $request->email)->first();
 
             if ($student) {
                 Log::info("Student found: {$student->email}. Checking password...");
-
                 if (Hash::check($request->password, $student->password)) {
-
                     Log::info("Student password correct. Logging in student: {$student->email}");
-
                     Session::put('tenant_id', $tenant->id);
                     Session::put('tenant_name', $tenant->school_name);
-
                     Auth::guard('student')->login($student);
                     return redirect()->route('tenant.student.student-index');
                 } else {
@@ -147,15 +134,12 @@ class SchoolRegistrationController extends Controller
             } else {
                 Log::warning("Student not found for email: {$request->email}");
             }
-
             return back()->withErrors(['email' => 'Invalid credentials']);
 
         } catch (Exception $e) {
-
             Log::error("Login error occurred: " . $e->getMessage(), [
                 'trace' => $e->getTraceAsString()
             ]);
-
             return back()->withErrors(['email' => 'Something went wrong.']);
         }
     }

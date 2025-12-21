@@ -1,4 +1,7 @@
 {
     "StudentManagement": true,
-    "HostelManagement": true
+    "HostelManagement": true,
+    "StudentAttendance": true,
+    "Migration": true,
+    "CreateClassStudentTable": true
 }

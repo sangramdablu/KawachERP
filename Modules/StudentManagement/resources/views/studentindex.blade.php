@@ -3,394 +3,6 @@
 
 @section('content')
 
-<style>
-  /* -----------------------------------------
-    STATISTICS CARDS
-  ------------------------------------------ */
-  .stat-card-custom {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: #fff;
-      border-radius: 12px;
-      padding: 1.5rem;
-      height: 100%;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      transition: transform 0.25s ease;
-  }
-  .stat-card-custom:hover {
-      transform: translateY(-3px);
-  }
-
-  .icon-circle-lg {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 1.25rem;
-      box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
-  }
-
-  .icon-circle-red { background-color: #dc3545; }
-  .icon-circle-orange { background-color: #fd7e14; }
-  .icon-circle-pink { background-color: #d63384; }
-  .icon-circle-cyan { background-color: #0dcaf0; }
-
-  .stat-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-  }
-
-  .stat-card-label {
-      color: #6c757d;
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      margin-bottom: 0.2rem;
-  }
-
-  .stat-card-value {
-      color: #212529;
-      font-size: 1.8rem;
-      font-weight: 700;
-  }
-
-  .stat-card-footer {
-      display: flex;
-      justify-content: flex-end;
-  }
-
-  .stat-card-change {
-      font-size: 0.85rem;
-      font-weight: 500;
-  }
-
-  /* Statistics grid */
-  .icons-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 15px;
-  }
-
-  .bg-light-yellow {
-      background-color: #fffde7;
-  }
-
-  #customSearchInput {
-      border-radius: 0.25rem;
-      border: 1px solid #dee2e6;
-  }
-  #customSearchInput:focus {
-      box-shadow: none;
-      border-color: #ced4da;
-  }
-
-  /* Hide default DataTables filter & length dropdown */
-  .dataTables_filter,
-  .dataTables_length {
-      display: none !important;
-  }
-
-  /* Table styling */
-  #studentsTable th,
-  #studentsTable td {
-      border: 0.5px solid #a4a4a4 !important;
-      vertical-align: middle;
-      padding: 10px 12px;
-  }
-
-  #studentsTable th:first-child,
-  #studentsTable td:first-child {
-      text-align: center;
-  }
-
-  #studentsTable thead th {
-      background-color: #f8f9fa;
-      font-weight: 600;
-      color: #343a40;
-  }
-
-  #studentsTable tbody tr:hover > td {
-      background-color: #f1f3f5 !important;
-  }
-
-  /* Table striping */
-  #studentsTable.dataTable tbody tr:nth-child(odd) > td {
-      background-color: #ffffff !important;
-  }
-  #studentsTable.dataTable tbody tr:nth-child(even) > td {
-      background-color: #ddf9ff !important;
-  }
-
-  .dataTables_info,
-  .dataTables_paginate {
-      padding: 0.2rem 0;
-  }
-
-  /* Make checkbox slightly larger */
-  #studentsTable th.text-center input[type="checkbox"] {
-      transform: scale(1.1);
-  }
-
-  /* Mobile fix */
-  @media (max-width: 576px) {
-      #studentsTable.dataTable tbody td {
-          background-clip: padding-box;
-      }
-  }
-/* Student View Sidebar Modal */
-/* .sidebar-modal {
-    position: fixed;
-    top: 4.625rem;
-    right: -900px;
-    width: 900px;
-    height: calc(100vh - 4.625rem);
-    background: white;
-    z-index: 1050;
-    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-} */
- /* ==== Sidebar initial state ==== */
-.sidebar-modal {
-    position: fixed;
-    top: 4.625rem;
-    right: 0;
-    transform: translateX(100%);   /* Hides fully always */
-    width: 900px;
-    max-width: 1200px;
-    min-width: 450px;
-    height: calc(100vh - 4.625rem);
-    background: white;
-    z-index: 1055;
-    box-shadow: -6px 0 25px rgba(0,0,0,.18);
-    transition: transform .38s cubic-bezier(.25,.8,.25,1), width .15s linear;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-/* ==== Open State ==== */
-.sidebar-modal.active{
-    transform: translateX(0);    /* Slide in */
-}
-
-/* Overlay remains same */
-#sidebarOverlay.active{ display:block; }
-
-/* Overlay */
-.sidebar-overlay {
-    display: none;
-    position: fixed;
-    top: 4.625rem;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1040;
-    transition: opacity 0.3s ease;
-}
-/* Resizer handle */
-.sidebar-resizer{
-    width: 8px;
-    cursor: ew-resize;
-    background: transparent;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.sidebar-resizer::before{
-    content:"";
-    width:13px;
-    height:40px;
-    border-radius:10px;
-    background: rgba(0,0,0,.18);
-    transition:.25s;
-    opacity:.7;
-}
-
-/* On hover show active drag indicator */
-.sidebar-resizer:hover::before{
-    background:#844fc1;         /* highlight */
-    width:4px;
-}
-
-/* Add grip dots aesthetic */
-.sidebar-resizer::after{
-    content:"";
-    position:absolute;
-    width:14px;
-    height:22px;
-    border-radius:4px;
-    background:linear-gradient(
-        rgba(0,0,0,.4) 25%,
-        transparent 25%,
-        transparent 50%,
-        rgba(0,0,0,.4) 50%,
-        rgba(0,0,0,.4) 75%,
-        transparent 75%,
-        transparent
-    );
-    right:2px;
-    opacity:.6;
-}
-
-/* On grab while dragging */
-body.resizing .sidebar-resizer::before{
-    background:#4f2aa8;
-    opacity:10;
-}
-
-.sidebar-modal.active {
-    right: 0;
-}
-
-/* Sidebar Header */
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    background: #844fc1;
-    color: white;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.sidebar-header h4 {
-    margin: 0;
-    font-weight: 600;
-    font-size: 1.25rem;
-}
-
-.close-sidebar {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.close-sidebar:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: rotate(90deg);
-}
-
-/* Sidebar Content */
-.sidebar-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 0;
-}
-
-.sidebar-body {
-    padding: 1.5rem;
-}
-
-/* Student Profile Section */
-.student-profile-header {
-    text-align: center;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid #e9ecef;
-    margin-bottom: 1.5rem;
-}
-
-.profile-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #e9ecef;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.student-name {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-    color: #343a40;
-}
-
-.student-email {
-    color: #6c757d;
-    font-size: 0.95rem;
-}
-
-/* Details Grid */
-.details-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.detail-item {
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 8px;
-    border-left: 4px solid #667eea;
-}
-
-.detail-label {
-    font-size: 0.85rem;
-    color: #6c757d;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-}
-
-.detail-value {
-    font-size: 1rem;
-    font-weight: 500;
-    color: #343a40;
-}
-
-.sidebar-overlay.active {
-    display: block;
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .sidebar-modal {
-        width: 90%;
-        right: -90%;
-    }
-}
-
-@media (max-width: 576px) {
-    .sidebar-modal {
-        width: 100%;
-        right: -100%;
-    }
-    
-    .details-grid {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
-
   <div class="card">
     <div class="card-body">
       <h4 class="card-title mb-3">Students Statistics</h4>
@@ -551,26 +163,28 @@ $(document).ready(function() {
         },
         columns: [
             {
-                data: null,
-                orderable: false,
-                className: 'text-center',
-                render: data => `<input type="checkbox" class="row-checkbox" value="${data.id}">`
+              data: null,
+              orderable: false,
+              className: 'text-center',
+              render: data => `<input type="checkbox" class="row-checkbox" value="${data.id}">`
             },
             { data: 'id', width: '5%', className: 'text-center' },
             { data: 'first_name' },
             { data: 'last_name' },
             {
-                data: 'profile_picture',
-                render: function(data) {
-                    if (!data) {
-                        return `<img src="/storage/defaultimage/default-avatar.png" class="rounded-circle" width="40" height="40">`;
-                    }
+              data: 'profile_picture',
+              render: function(data) {
+                console.log(data);
+                
+                  if (!data) {
+                      return `<img src="/storage/defaultimage/default-avatar.png" class="rounded-circle" width="40" height="40">`;
+                  }
 
-                    return `<img src="/storage/${data}" class="rounded-circle" width="70" height="70">`;
-                },
-                orderable: false,
-                className: 'text-center',
-                width: '8%'
+                  return `<img src="/storage/${data}" class="rounded-circle" width="70" height="70">`;
+              },
+              orderable: false,
+              className: 'text-center',
+              width: '8%'
             },
 
             { data: 'email' },
@@ -589,23 +203,36 @@ $(document).ready(function() {
             },
             {
                 data: null,
+                className: "text-center",
                 orderable: false,
-                className: 'text-center',
                 render: data => `
-                <div class="d-flex justify-content-center">
-                  <button type="button" class="btn btn-info btn-sm btn-icon-text mr-3" data-id="${data.id}">
-                    View
-                    <i class="typcn typcn-eye-outline btn-icon-append"></i>
-                  </button>
-                  <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3" data-id="${data.id}">
-                    Edit
-                    <i class="typcn typcn-edit btn-icon-append"></i>
-                  </button>
-                  <button type="button" class="btn btn-danger btn-sm btn-icon-text" data-id="${data.id}">
-                    Delete
-                    <i class="typcn typcn-delete-outline btn-icon-append"></i>
-                  </button>
-                </div>`
+                    <div class="d-flex justify-content-center align-items-center">
+                        <!-- View Button with eye animation -->
+                        <button type="button" class="btn btn-link p-1 mr-1 border-0 text-info action-view" title="View" data-id="${data.id}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="eye-icon">
+                                <path fill="currentColor" d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0z"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Edit Button with pencil animation -->
+                        <button type="button" class="btn btn-link p-1 mr-1 border-0 text-success action-edit" title="Edit" data-id="${data.id}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="pencil-icon">
+                                <path fill="currentColor" d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83l3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Delete Button with trash animation -->
+                        <button type="button" class="btn btn-link p-1 border-0 text-danger action-delete" title="Delete" data-id="${data.id}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48" class="trash-icon">
+                                <polygon fill="#9575cd" points="32,10 28,6 20,6 16,10"></polygon>
+                                <path fill="#9575cd" d="M11,10v30c0,2.2,1.8,4,4,4h18c2.2,0,4-1.8,4-4V10H11z"></path>
+                                <path fill="#7454b3" d="M24.5,39h-1c-0.8,0-1.5-0.7-1.5-1.5v-19c0-0.8,0.7-1.5,1.5-1.5h1c0.8,0,1.5,0.7,1.5,1.5v19 C26,38.3,25.3,39,24.5,39z"></path>
+                                <path fill="#7454b3" d="M31.5,39L31.5,39c-0.8,0-1.5-0.7-1.5-1.5v-19c0-0.8,0.7-1.5,1.5-1.5l0,0c0.8,0,1.5,0.7,1.5,1.5v19 C33,38.3,32.3,39,31.5,39z"></path>
+                                <path fill="#7454b3" d="M16.5,39L16.5,39c-0.8,0-1.5-0.7-1.5-1.5v-19c0-0.8,0.7-1.5,1.5-1.5l0,0c0.8,0,1.5,0.7,1.5,1.5v19 C18,38.3,17.3,39,16.5,39z"></path>
+                                <path fill="#b39ddb" d="M11,8h26c1.1,0,2,0.9,2,2v2H9v-2C9,8.9,9.9,8,11,8z"></path>
+                            </svg>
+                        </button>
+                    </div>`
             }
         ],
 
@@ -659,10 +286,6 @@ $(document).ready(function() {
         // alert('Saving student with ID: ' + studentId);
     });
 
-
-    // Sidebar functions
-    // Update your JavaScript functions to match the new structure
-
     // Sidebar functions
     function openSidebar() {
         $('#studentViewSidebar').addClass('active');
@@ -675,14 +298,10 @@ $(document).ready(function() {
         $('#sidebarOverlay').removeClass('active');
         $('body').css('overflow','auto');
     }
-
-
     // Handle View click inside datatable
-    $('#studentsTable').on('click', '.btn-info', function(){
+    $('#studentsTable').on('click', '.action-view', function(){
         let id = $(this).data('id');
-        
         showLoader(["Fetching student details..."]);
-        
         $.ajax({
             url: "{{ url('tenant/student/student-view') }}/" + id,
             method: "GET",
@@ -793,7 +412,7 @@ $(document).ready(function() {
     });
 
     // Handle Edit button click
-    $('#studentsTable').on('click', '.btn-success', function(){
+    $('#studentsTable').on('click', '.action-edit', function(){
         let id = $(this).data('id');
         loadStudentForEdit(id);
     });
@@ -840,11 +459,7 @@ $(document).ready(function() {
         document.body.classList.remove("resizing");
     });
 
-
-
     // Edit Students
-
-
     function loadStudentForEdit(id){
       showLoader(["Loading student for editing..."]);
 
@@ -941,17 +556,7 @@ $(document).ready(function() {
   }
 
 
-
-
-
-
-
 });
-
-
 </script>
 @endpush
-
-
-
 @endsection

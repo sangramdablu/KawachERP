@@ -1,159 +1,6 @@
 @extends('layouts.master')
 @section('content')
 
-
-  <style>
-    .stat-card-custom {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: #fff;
-      border-radius: 12px;
-      padding: 1.5rem;
-      height: 100%;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-      transition: transform 0.25s ease;
-    }
-
-    .stat-card-custom:hover {
-      transform: translateY(-3px);
-    }
-
-    .icon-circle-lg {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 1.25rem;
-      box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
-    }
-
-    .icon-circle-red {
-      background-color: #dc3545;
-    }
-
-    .icon-circle-orange {
-      background-color: #fd7e14;
-    }
-
-    .icon-circle-pink {
-      background-color: #d63384;
-    }
-
-    .icon-circle-cyan {
-      background-color: #0dcaf0;
-    }
-
-    .stat-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    .stat-card-label {
-      color: #6c757d;
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      margin-bottom: 0.2rem;
-    }
-
-    .stat-card-value {
-      color: #212529;
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
-
-    .stat-card-footer {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .stat-card-change {
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-
-    /* Statistics grid */
-    .icons-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 15px;
-    }
-
-    .bg-light-yellow {
-      background-color: #fffde7;
-    }
-
-    #customSearchInput {
-      border-radius: 0.25rem;
-      border: 1px solid #dee2e6;
-    }
-
-    #customSearchInput:focus {
-      box-shadow: none;
-      border-color: #ced4da;
-    }
-
-    /* Hide default DataTables filter & length dropdown */
-    .dataTables_filter,
-    .dataTables_length {
-      display: none !important;
-    }
-
-    /* Table styling */
-    #teachersTable th,
-    #teachersTable td {
-      border: 0.5px solid #a4a4a4 !important;
-      vertical-align: middle;
-      padding: 10px 12px;
-    }
-
-    #teachersTable th:first-child,
-    #teachersTable td:first-child {
-      text-align: center;
-    }
-
-    #teachersTable thead th {
-      background-color: #f8f9fa;
-      font-weight: 600;
-      color: #343a40;
-    }
-
-    #teachersTable tbody tr:hover>td {
-      background-color: #f1f3f5 !important;
-    }
-
-    /* Table striping */
-    #teachersTable.dataTable tbody tr:nth-child(odd)>td {
-      background-color: #ffffff !important;
-    }
-
-    #teachersTable.dataTable tbody tr:nth-child(even)>td {
-      background-color: #ddf9ff !important;
-    }
-
-    .dataTables_info,
-    .dataTables_paginate {
-      padding: 1rem 0;
-    }
-
-    /* Make checkbox slightly larger */
-    #teachersTable th.text-center input[type="checkbox"] {
-      transform: scale(1.1);
-    }
-
-    /* Mobile fix */
-    @media (max-width: 576px) {
-      #teachersTable.dataTable tbody td {
-        background-clip: padding-box;
-      }
-    }
-  </style>
-
   <div class="card">
     <div class="card-body">
       <h4 class="card-title mb-3">Teachers Statistics</h4>
@@ -341,28 +188,39 @@
                   }
                 }
               },
-
-              // Action Buttons
               {
-                  data: null,
-                  orderable: false,
-                  className: 'text-center',
-                  render: data => `
-                  <div class="d-flex justify-content-center">
-                      <button type="button" class="btn btn-info btn-sm btn-icon-text mr-3" data-id="${data.id}">
-                          View
-                          <i class="typcn typcn-eye-outline btn-icon-append"></i>
-                      </button>
-                      <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3" data-id="${data.id}">
-                        Edit
-                        <i class="typcn typcn-edit btn-icon-append"></i>
-                      </button>
-                      <button type="button" class="btn btn-danger btn-sm btn-icon-text" data-id="${data.id}">
-                        Delete
-                        <i class="typcn typcn-delete-outline btn-icon-append"></i>
-                      </button>
+                data: null,
+                className: "text-center",
+                orderable: false,
+                render: data => `
+                    <div class="d-flex justify-content-center align-items-center">
+                        <!-- View Button with eye animation -->
+                        <button type="button" class="btn btn-link p-1 mr-1 border-0 text-info action-view" title="View" data-id="${data.id}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="eye-icon">
+                                <path fill="currentColor" d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0z"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Edit Button with pencil animation -->
+                        <button type="button" class="btn btn-link p-1 mr-1 border-0 text-success action-edit" title="Edit" data-id="${data.id}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="pencil-icon">
+                                <path fill="currentColor" d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83l3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Delete Button with trash animation -->
+                        <button type="button" class="btn btn-link p-1 border-0 text-danger action-delete" title="Delete" data-id="${data.id}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48" class="trash-icon">
+                                <polygon fill="#9575cd" points="32,10 28,6 20,6 16,10"></polygon>
+                                <path fill="#9575cd" d="M11,10v30c0,2.2,1.8,4,4,4h18c2.2,0,4-1.8,4-4V10H11z"></path>
+                                <path fill="#7454b3" d="M24.5,39h-1c-0.8,0-1.5-0.7-1.5-1.5v-19c0-0.8,0.7-1.5,1.5-1.5h1c0.8,0,1.5,0.7,1.5,1.5v19 C26,38.3,25.3,39,24.5,39z"></path>
+                                <path fill="#7454b3" d="M31.5,39L31.5,39c-0.8,0-1.5-0.7-1.5-1.5v-19c0-0.8,0.7-1.5,1.5-1.5l0,0c0.8,0,1.5,0.7,1.5,1.5v19 C33,38.3,32.3,39,31.5,39z"></path>
+                                <path fill="#7454b3" d="M16.5,39L16.5,39c-0.8,0-1.5-0.7-1.5-1.5v-19c0-0.8,0.7-1.5,1.5-1.5l0,0c0.8,0,1.5,0.7,1.5,1.5v19 C18,38.3,17.3,39,16.5,39z"></path>
+                                <path fill="#b39ddb" d="M11,8h26c1.1,0,2,0.9,2,2v2H9v-2C9,8.9,9.9,8,11,8z"></path>
+                            </svg>
+                        </button>
                     </div>`
-              }
+            }
           ],
 
           responsive: true,

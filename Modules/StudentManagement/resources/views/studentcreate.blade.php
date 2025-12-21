@@ -391,13 +391,28 @@
                                 <!-- Grade -->
                                 <div class="col-md-6 col-lg-3">
                                     <label for="grade" class="form-label stu-form-label">Grade/Class</label>
-                                    <input type="text" id="grade" name="grade" class="form-control stu-form-control" maxlength="50" placeholder="e.g., 10th">
+                                    
+                                    <select id="grade" name="grade" class="form-control stu-form-control">
+                                        <option value="">Select Class</option>
+                                        @foreach($classes as $class)
+                                            <option value="{{ $class->class_name }}">
+                                                {{ $class->class_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <!-- Section -->
                                 <div class="col-md-6 col-lg-3">
                                     <label for="section" class="form-label stu-form-label">Section</label>
-                                    <input type="text" id="section" name="section" class="form-control stu-form-control" maxlength="50" placeholder="e.g., A">
+                                    <select id="grade" name="grade" class="form-control stu-form-control">
+                                        <option value="">Select Section</option>
+                                        @foreach($classes as $class)
+                                            <option value="{{ $class->section }}">
+                                                {{ $class->section }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 
                                 <!-- Profile Picture Upload -->

@@ -52,6 +52,10 @@ class Student extends Authenticatable
         return session('tenant_connection') ?? config('database.default');
     }
 
+    public function attendance(){
+        return $this->hasMany(StudentAttendance::class);
+    }
+
 
     // protected static function newFactory(): StudentFactory
     // {

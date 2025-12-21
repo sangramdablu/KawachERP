@@ -3,8 +3,8 @@
     @include('layouts.head')
     @include('modals.confirmmodal')
     @include('modals.successmodal')
-    @include('modals.editstudent')
     @include('modals.loadermodal')
+    @include('modals.sidemodal')
 
 <body>
   {{-- <div class="row" id="proBanner">
