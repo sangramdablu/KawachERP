@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/studentmanagement",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\StudentManagement\\": "app/",
+            "Modules\\StudentManagement\\Database\\Factories\\": "database/factories/",
+            "Modules\\StudentManagement\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\StudentManagement\\Tests\\": "tests/"
+        }
+    }
+}

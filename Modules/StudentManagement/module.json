@@ -1,0 +1,73 @@
+{
+    "name": "StudentManagement",
+    "slug": "StudentManagement",
+    "menu": [
+        {
+            "title": "Students",
+            "icon": "typcn typcn-group-outline",
+            "collapse_id": "StudentManagementMenu",
+            "submenus": [
+                {
+                    "title": "Dashboard",
+                    "route": "tenant.student.student-index"
+                },
+                {
+                    "title": "Add Student",
+                    "route": "tenant.student.student-create"
+                }
+            ]
+        },
+        {
+            "title": "Teachers",
+            "icon": "typcn typcn-user-add-outline",
+            "collapse_id": "TeacherManagementMenu",
+            "submenus": [
+                {
+                    "title": "Dashboard",
+                    "route": "tenant.teacher.teacher-index"
+                },
+                {
+                    "title": "Add Teacher",
+                    "route": "tenant.teacher.teacher-create"
+                }
+            ]
+        },{
+            "title": "Classes",
+            "icon": "typcn typcn-home-outline",
+            "collapse_id": "ClassManagementMenu",
+            "submenus": [
+                {
+                    "title": "Dashboard",
+                    "route": "tenant.class.class-index"
+                },
+                {
+                    "title": "Add Class",
+                    "route": "tenant.class.class-create"
+                }
+            ]
+        },
+        {
+            "title": "Subjects",
+            "icon": "typcn typcn-book",
+            "collapse_id": "SubjectManagementMenu",
+            "submenus": [
+                {
+                    "title": "Dashboard",
+                    "route": "tenant.subject.subject-index"
+                },
+                {
+                    "title": "Add Subject",
+                    "route": "tenant.subject.subject-create"
+                }
+            ]
+        }
+    ],
+    "alias": "studentmanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\StudentManagement\\Providers\\StudentManagementServiceProvider"
+    ],
+    "files": []
+}
