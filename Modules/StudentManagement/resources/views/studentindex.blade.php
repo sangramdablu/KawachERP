@@ -89,17 +89,23 @@
 
   <div class="card">
     <div class="card-body">
-        <header class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+        <header class="d-flex mb-2 flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
             <h4 class="card-title mb-3">Student Lists</h4>
             <div class="d-flex gap-3">
-                <button class="btn btn-outline-secondary d-flex align-items-center rounded-5 shadow-sm transition duration-150">
+                <select id="addClassSelect" class="form-select rounded-pill d-flex align-items-center">
+                    <option value="" disabled selected>Select Class</option>
+                    <option value="addClass">Add Class</option>
+                    <option value="anotherOption">Another Option</option>
+                    <option value="moreOptions">More Options</option>
+                </select>
+                {{-- <button class="btn btn-outline-secondary d-flex align-items-center rounded-5 shadow-sm transition duration-150">
                     <i data-lucide="arrow-down-to-line" class="w-4 h-4 me-2"></i>
                     Export
                 </button>
                 <button id="addRowBtn" type="button" class="add-row-btn btn text-white fw-semibold py-2 px-4 rounded-pill d-flex align-items-center shadow-lg" style="background: linear-gradient(45deg, #e83e8c, #d12e7e);">
                     <i data-lucide="plus" class="fas fa-plus me-2"></i>
                     Add Class
-                </button>
+                </button> --}}
             </div>
         </header>
         <table id="studentsTable" class="table table-hover w-100">
@@ -238,7 +244,7 @@ $(document).ready(function() {
 
         responsive: true,
         pageLength: 10,
-        dom: '<"top"i>rt<"bottom"lp><"clear">',
+        dom: `<"row mb-1 align-items-center"<"col-md-6 text-start"i><"col-md-6 text-end"f>>rt<"row mt-1 align-items-center"<"col-md-6 text-start"l><"col-md-6 text-end"p>>`,
         language: {
             info: "Showing _START_ to _END_ of _TOTAL_ entries",
             paginate: {

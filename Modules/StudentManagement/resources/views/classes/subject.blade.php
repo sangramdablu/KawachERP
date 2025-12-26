@@ -98,42 +98,42 @@
     }
 
     /* Hide default DataTables filter & length dropdown */
-    /* .dataTables_filter,
+    .dataTables_filter,
     .dataTables_length {
       display: none !important;
-    } */
+    }
 
     /* Table styling */
-    /* #classesTable th,
-    #classesTable td {
+    #teachersTable th,
+    #teachersTable td {
       border: 0.5px solid #a4a4a4 !important;
       vertical-align: middle;
       padding: 10px 12px;
     }
 
-    #classesTable th:first-child,
-    #classesTable td:first-child {
+    #teachersTable th:first-child,
+    #teachersTable td:first-child {
       text-align: center;
     }
 
-    #classesTable thead th {
+    #teachersTable thead th {
       background-color: #f8f9fa;
       font-weight: 600;
       color: #343a40;
     }
 
-    #classesTable tbody tr:hover>td {
+    #teachersTable tbody tr:hover>td {
       background-color: #f1f3f5 !important;
     }
 
     /* Table striping */
-    /* #classesTable.dataTable tbody tr:nth-child(odd)>td {
+    #teachersTable.dataTable tbody tr:nth-child(odd)>td {
       background-color: #ffffff !important;
     }
 
-    #classesTable.dataTable tbody tr:nth-child(even)>td {
+    #teachersTable.dataTable tbody tr:nth-child(even)>td {
       background-color: #ddf9ff !important;
-    } */
+    }
 
     .dataTables_info,
     .dataTables_paginate {
@@ -141,16 +141,16 @@
     }
 
     /* Make checkbox slightly larger */
-    #classesTable th.text-center input[type="checkbox"] {
+    #teachersTable th.text-center input[type="checkbox"] {
       transform: scale(1.1);
     }
 
     /* Mobile fix */
     @media (max-width: 576px) {
-      #classesTable.dataTable tbody td {
+      #teachersTable.dataTable tbody td {
         background-clip: padding-box;
       }
-    } */
+    }
     .metric-value {
         font-size: 2.25rem;
         font-weight: 700;
@@ -242,28 +242,17 @@
         100% { border-color: rgba(132, 79, 193, 0.25); }
     }
 
-    .skeleton {
-        background-color: #e9ecef;
-        background-image: linear-gradient(
-            90deg,
-            #e9ecef,
-            #f8f9fa,
-            #e9ecef
-        );
-        background-size: 200px 100%;
-        animation: skeleton-loading 1.2s infinite;
-    }
-
 
 </style>
 
+@hasrole('Admin', 'school')
 <div class="card">
     <div class="card-body">
     <header class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
         {{-- <h1 class="fs-3 fw-bolder text-dark mb-3 mb-md-0">
             Classes Management Dashboard
         </h1> --}}
-        <h4 class="card-title mb-3">Class Statistics</h4>
+        <h4 class="card-title mb-3">Subjects Statistics</h4>
         <div class="d-flex gap-3">
             <button class="btn btn-outline-secondary d-flex align-items-center rounded-5 shadow-sm transition duration-150">
                 <i data-lucide="arrow-down-to-line" class="w-4 h-4 me-2"></i>
@@ -271,7 +260,7 @@
             </button>
             <button id="addRowBtn" type="button" class="add-row-btn btn text-white fw-semibold py-2 px-4 rounded-pill d-flex align-items-center shadow-lg" style="background: linear-gradient(45deg, #e83e8c, #d12e7e);">
                 <i data-lucide="plus" class="fas fa-plus me-2"></i>
-                Add Class
+                Add Subjects
             </button>
         </div>
     </header>
@@ -357,16 +346,9 @@
 <div class="card">
     <div class="card-body">
         <header class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-            <h4 class="card-title mb-3">Class Statistics</h4>
+            <h4 class="card-title mb-3">Subjects Table</h4>
             <div class="d-flex gap-3">
-                {{-- <button class="btn btn-outline-secondary d-flex align-items-center rounded-5 shadow-sm transition duration-150">
-                    <i data-lucide="arrow-down-to-line" class="w-4 h-4 me-2"></i>
-                    Export
-                </button>
-                <button id="addRowBtn" type="button" class="add-row-btn btn text-white fw-semibold py-2 px-4 rounded-pill d-flex align-items-center shadow-lg" style="background: linear-gradient(45deg, #e83e8c, #d12e7e);">
-                    <i data-lucide="plus" class="fas fa-plus me-2"></i>
-                    Add Class
-                </button> --}}
+
             </div>
         </header>
         <div class="table-responsive">
@@ -390,6 +372,7 @@
         </div>
     </div>
 </div>
+@endhasrole
 
     <!-- Script to load Lucide icons library -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -403,8 +386,7 @@
 @push('scripts')
 <script>
 $(document).ready(function () {
-
-    const table = $('#classesTable').DataTable({
+        const table = $('#classesTable').DataTable({
         ajax: {
             url: '{{ route("tenant.class.class-list") }}',
             dataSrc: function (json) {
@@ -435,7 +417,7 @@ $(document).ready(function () {
                 className: "text-center",
                 render: data => `<input type="checkbox" class="class-row-checkbox" value="${data.id}">`
             },
-            { data: "class_name",className: "text-center" },
+            { data: "class_name" },
 
             {
                 data: null,
@@ -490,7 +472,7 @@ $(document).ready(function () {
         ],
         responsive: true,
         pageLength: 10,
-        dom: `<"row mb-3 align-items-center"<"col-md-6 text-start"i><"col-md-6 text-end"f>>rt<"row mt-3 align-items-center"<"col-md-6 text-start"l><"col-md-6 text-end"p>>`,
+        dom: '<"top"i>rt<"bottom"lp><"clear">',
         order: [[1, 'desc']],
         language: {
             info: "Showing _START_ to _END_ of _TOTAL_ classes",
@@ -503,12 +485,9 @@ $(document).ready(function () {
             $('.dataTables_paginate .pagination').addClass('justify-content-end');
         }
     });
-
-
     $('#selectAllClasses').on('click', function () {
         $('.class-row-checkbox').prop('checked', this.checked);
     });
-
     $('#classesTable tbody').on('change', '.class-row-checkbox', function () {
         $('#selectAllClasses').prop(
             'checked',
@@ -516,61 +495,21 @@ $(document).ready(function () {
         );
     });
 
-
-    function getSubjectSkeleton() {
-        let rows = '';
-        for (let i = 0; i < 4; i++) {
-            rows += `
-                <tr>
-                    <td><div class="skeleton skeleton-text"></div></td>
-                    <td><div class="skeleton skeleton-text"></div></td>
-                    <td><div class="skeleton skeleton-text"></div></td>
-                    <td><div class="skeleton skeleton-text"></div></td>
-                </tr>
-            `;
-        }
-
-        return `
-            <div class="child-connector">
-                <div class="connector-vertical"></div>
-                <div class="connector-content sub-table-wrapper subtable-animate">
-                    <table class="table table-bordered sub-table mb-0">
-                        <thead>
-                            <tr>
-                                <th>Subject Name</th>
-                                <th class="text-center">Subject Code</th>
-                                <th class="text-center">Credit Hours</th>
-                                <th class="text-center">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${rows}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        `;
-    }
-
     $('#classesTable tbody').on('click', 'td.details-control', function () {
-
         let tr = $(this).closest('tr');
         let row = table.row(tr);
-        let arrow = tr.find(".expand-arrow i");
-
+        tr.find(".expand-arrow i").addClass("rotate");
+        // If already open → close it
         if (row.child.isShown()) {
             row.child.hide();
-            arrow.removeClass("rotate");
+            tr.find(".expand-arrow i").removeClass("rotate");
             tr.removeClass('row-expanded');
             return;
         }
-
-        arrow.addClass("rotate");
+        // Otherwise, open it
         tr.addClass('row-expanded');
-
-        const classId = row.data().id;
-        row.child(getSubjectSkeleton()).show();
-
+        let classId = row.data().id;
+        showLoader(["Loading subjects..."]);
         $.ajax({
             url: "{{ route('tenant.subject.subject-clalist', ['id' => 'CLASS_ID']) }}"
                 .replace('CLASS_ID', classId),
@@ -579,20 +518,16 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')
             },
             success: function (res) {
-
+                hideLoader();
                 if (!res.subjects || res.subjects.length === 0) {
                     row.child(`
-                        <div class="child-connector">
-                            <div class="connector-vertical"></div>
-                            <div class="connector-content sub-table-wrapper subtable-animate">
-                                <p class="text-muted mb-0">No subjects assigned to this class.</p>
-                            </div>
+                        <div class="sub-table-wrapper subtable-animate">
+                            <p class="text-muted mb-0">No subjects assigned to this class.</p>
                         </div>
                     `).show();
                     return;
                 }
-
-                const html = buildSubjectSubtable(res.subjects);
+                let html = buildSubjectSubtable(res.subjects);
                 row.child(`
                     <div class="child-connector">
                         <div class="connector-vertical"></div>
@@ -603,17 +538,12 @@ $(document).ready(function () {
                 `).show();
             },
             error: function () {
-                row.child(`
-                    <div class="child-connector">
-                        <div class="connector-vertical"></div>
-                        <div class="connector-content sub-table-wrapper subtable-animate">
-                            <p class="text-danger mb-0">Failed to load subjects.</p>
-                        </div>
-                    </div>
-                `).show();
+                hideLoader();
+                showError("Error", "Unable to load subjects.");
             }
         });
     });
+
 
     // Build sub-table rows
     function buildSubjectSubtable(subjects) {

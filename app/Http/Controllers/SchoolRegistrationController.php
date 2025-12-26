@@ -96,9 +96,7 @@ class SchoolRegistrationController extends Controller
         ]);
 
         try {
-            // Get tenant
             $tenant = \Spatie\Multitenancy\Models\Tenant::current();
-
             if (!$tenant) {
                 Log::error("Login failed: No tenant detected.");
                 return back()->withErrors(['email' => 'Invalid tenant domain']);

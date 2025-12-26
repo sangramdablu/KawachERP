@@ -59,4 +59,9 @@
         document.body.classList.remove("resizing");
     });
 
+    function closeSidebar() {
+        $('#sideModal').removeClass('active');
+        $('#sidebarOverlay').removeClass('active');
+        $('body').css('overflow','auto');
+    }
 </script>

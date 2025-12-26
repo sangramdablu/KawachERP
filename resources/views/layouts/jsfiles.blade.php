@@ -20,5 +20,20 @@
 <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+        if (typeof flatpickr !== 'undefined') {
+            flatpickr("#attendanceDate", {
+                dateFormat: "Y-m-d",
+                defaultDate: "today",
+                allowInput: false
+            });
+        } else {
+            console.error('Flatpickr not loaded');
+        }
+    });
+</script>
+
 
 @stack('scripts')

@@ -39,6 +39,7 @@ Route::middleware(['web', NeedsTenant::class,'school.auth'])->prefix('tenant/stu
 
 });
 
+// Routes for School Admin
 Route::middleware(['web', NeedsTenant::class, 'school.auth'])->prefix('tenant/student')->as('tenant.student.')->group(function () {
     Route::get('/student-dashboard', [StudentManagementController::class, 'index'])->name('student-index');
     Route::get('/list', [StudentManagementController::class, 'getStudents'])->name('list');
@@ -46,6 +47,12 @@ Route::middleware(['web', NeedsTenant::class, 'school.auth'])->prefix('tenant/st
     Route::post('/student/update/{id}', [StudentManagementController::class,'update']);
 
 });
+
+// Routes for Students
+// Route::middleware(['web', NeedsTenant::class, 'student.auth'])->prefix('tenant/student')->as('tenant.student.')->group(function () {
+//     Route::get('/student-dashboard', [StudentManagementController::class, 'index'])->name('student-index');
+
+// });
 
 Route::middleware(['web', NeedsTenant::class,'school.auth'])->prefix('tenant/teacher')->as('tenant.teacher.')->group(function () {
     Route::get('/teacher-dashboard', [TeachersController::class, 'index'])->name('teacher-index');

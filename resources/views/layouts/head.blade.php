@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="{{ asset('css/kawach.css') }}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
+  {{-- Calender --}}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   {{-- jQuery for AJAX --}}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Bootstrap 5 JavaScript CDN (Optional, but good practice for full functionality) -->

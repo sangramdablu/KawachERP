@@ -15,7 +15,7 @@ class SubjectManagementController extends Controller
      */
     public function index()
     {
-        return view('studentmanagement::index');
+        return view('studentmanagement::classes.subject');
     }
 
     /**

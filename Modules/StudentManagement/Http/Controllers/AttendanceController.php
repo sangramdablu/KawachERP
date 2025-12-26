@@ -4,6 +4,7 @@ namespace Modules\StudentManagement\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\StudentManagement\Models\Classes;
 
 class AttendanceController extends Controller
 {
@@ -12,7 +13,12 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        return view('studentmanagement::studentattendance.studentindex');
+        $classes = Classes::select( 'id', 'class_name', 'section', 'total_students' )
+        ->where('status', 1)
+        ->orderBy('class_name')
+        ->orderBy('section')
+        ->get();
+        return view( 'studentmanagement::studentattendance.studentattendance', compact('classes'));
     }
 
     /**
