@@ -35,7 +35,6 @@
             </li>
         @endrole
 
-
         {{-- ========================= TEACHER DASHBOARD ========================= --}}
         @role('Teacher', 'teacher')
             <li class="nav-item">
@@ -46,7 +45,6 @@
             </li>
         @endrole
 
-
         {{-- ========================= STUDENT DASHBOARD ========================= --}}
         @role('Student', 'student')
             <li class="nav-item">
@@ -56,7 +54,6 @@
                 </a>
             </li>
         @endrole
-
 
         {{-- ========================= ADMIN ONLY – Dynamic Module Menus ========================= --}}
         @role('Admin', 'school')
@@ -113,7 +110,6 @@
                 @endforeach
             @endforeach
         @endrole
-
 
         {{-- ========================= SETTINGS — ADMIN ONLY ========================= --}}
         @role('Admin', 'school')

@@ -45,6 +45,8 @@ Route::middleware(['web', NeedsTenant::class, 'school.auth'])->prefix('tenant/st
     Route::get('/list', [StudentManagementController::class, 'getStudents'])->name('list');
     Route::get('/student-view/{id}', [StudentManagementController::class,'view'])->name('student-view');
     Route::post('/student/update/{id}', [StudentManagementController::class,'update']);
+    Route::get('/download-template', [StudentManagementController::class, 'downloadTemplate'])->name('download-template');
+    Route::post('/csvbulk-store',[StudentManagementController::class, 'csvBulkStore'])->name('csvbulkStore');
 
 });
 

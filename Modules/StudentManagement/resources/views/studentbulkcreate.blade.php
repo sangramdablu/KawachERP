@@ -3,158 +3,229 @@
 @section('content')
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-:root {
-    --primary-accent: #e83e8c;
-    --border-color: #dee2e6;
-}
-.roster-card {
-    border-radius: 1rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.roster-grid {
-    display: grid;
-    grid-template-columns: 40px repeat(8, 1fr) 50px;
-    gap: 0;
-    align-items: center;
-}
-
-.roster-header {
-    background-color: #f8f9fa;
-    font-weight: 600;
-    color: #495057;
-    border-bottom: 2px solid var(--border-color);
-    border-top-left-radius: 0.8rem;
-    border-top-right-radius: 0.8rem;
-}
-.roster-header > div {
-    padding: 12px 10px;
-    border-right: 1px solid #e9ecef;
-    font-size: 0.85rem;
-}
-.roster-header > div:last-child {
-    border-right: none;
-}
-
-.roster-row {
-    transition: background-color 0.2s;
-    border-bottom: 1px solid #f8f9fa;
-}
-.roster-row:hover {
-    background-color: #f5f5f5;
-}
-.roster-row:last-child {
-    border-bottom: none;
-}
-
-.roster-cell {
-    padding: 2px 10px;
-    min-height: 50px;
-    display: flex;
-    align-items: center;
-}
-
-.roster-input {
-    width: 100%;
-    height: 36px;
-    padding: 4px 8px;
-    border: 1px solid #ced4da;
-    border-radius: 0.375rem;
-    font-size: 0.9rem;
-    transition: all 0.2s;
-}
-.roster-input:focus {
-    outline: none;
-    border-color: var(--primary-accent);
-    box-shadow: 0 0 0 0.25rem rgba(232, 62, 140, 0.25);
-}
-
-.roster-cell.sr-no {
-    font-weight: 500;
-    color: #495057;
-    justify-content: center;
-    font-size: 0.9rem;
-}
-
-@media (max-width: 991.98px) {
-    .roster-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    :root {
+        --primary-accent: #e83e8c;
+        --border-color: #dee2e6;
+    }
+    .roster-card {
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
-    .roster-table-wrapper {
-        min-width: 1200px; 
-    }
-    
     .roster-grid {
-        grid-template-columns: 40px repeat(9, 120px); 
-    }
-    
-    .roster-header > div:last-child,
-    .roster-row > .roster-cell:last-child {
-        display: none;
-    }
-}
-
-.add-row-btn {
-    background: linear-gradient(45deg, #e83e8c, #d12e7e); 
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(232, 62, 140, 0.4);
-    border: none;
-}
-.add-row-btn:hover {
-    filter: brightness(1.1);
-    box-shadow: 0 6px 16px rgba(232, 62, 140, 0.6);
-    transform: translateY(-1px);
-}
-
-.btn-excel-custom {
-    background-color: #1d6f42;
-    color: white;
-    border: none;
-    box-shadow: 0 4px 12px rgba(29, 111, 66, 0.3);
-    transition: all 0.3s ease;
-}
-.btn-excel-custom:hover {
-    background-color: #1a6039;
-    color: white;
-}
-
-@media (max-width: 768px) {
-    .content-wrapper,
-    .content-wrapper .row,
-    .content-wrapper .card,
-    .content-wrapper .card-body,
-    .content-wrapper .grid-margin,
-    .content-wrapper .icons-list {
-        margin: 0 !important;
-        padding: 0 !important;
+        display: grid;
+        grid-template-columns: 40px repeat(8, 1fr) 50px;
+        gap: 0;
+        align-items: center;
     }
 
-    .stu-form-section {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 10px !important;
+    .roster-header {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        color: #495057;
+        border-bottom: 2px solid var(--border-color);
+        border-top-left-radius: 0.8rem;
+        border-top-right-radius: 0.8rem;
+    }
+    .roster-header > div {
+        padding: 12px 10px;
+        border-right: 1px solid #e9ecef;
+        font-size: 0.85rem;
+    }
+    .roster-header > div:last-child {
+        border-right: none;
     }
 
-    .content-wrapper .card {
-        border: none !important;
-        box-shadow: none !important;
+    .roster-row {
+        transition: background-color 0.2s;
+        border-bottom: 1px solid #f8f9fa;
+    }
+    .roster-row:hover {
+        background-color: #f5f5f5;
+    }
+    .roster-row:last-child {
+        border-bottom: none;
     }
 
-    .content-wrapper {
-        background-color: #f9f9f9 !important;
+    .roster-cell {
+        padding: 2px 10px;
+        min-height: 50px;
+        display: flex;
+        align-items: center;
     }
-}
+
+    .roster-input {
+        width: 100%;
+        height: 36px;
+        padding: 4px 8px;
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+    }
+    .roster-input:focus {
+        outline: none;
+        border-color: var(--primary-accent);
+        box-shadow: 0 0 0 0.25rem rgba(232, 62, 140, 0.25);
+    }
+
+    .roster-cell.sr-no {
+        font-weight: 500;
+        color: #495057;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 991.98px) {
+        .roster-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .roster-table-wrapper {
+            min-width: 1200px; 
+        }
+        
+        .roster-grid {
+            grid-template-columns: 40px repeat(9, 120px); 
+        }
+        
+        .roster-header > div:last-child,
+        .roster-row > .roster-cell:last-child {
+            display: none;
+        }
+    }
+
+    .add-row-btn {
+        background: linear-gradient(45deg, #e83e8c, #d12e7e); 
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(232, 62, 140, 0.4);
+        border: none;
+    }
+    .add-row-btn:hover {
+        filter: brightness(1.1);
+        box-shadow: 0 6px 16px rgba(232, 62, 140, 0.6);
+        transform: translateY(-1px);
+    }
+
+    .btn-excel-custom {
+        background-color: #1d6f42;
+        color: white;
+        border: none;
+        box-shadow: 0 4px 12px rgba(29, 111, 66, 0.3);
+        transition: all 0.3s ease;
+    }
+    .btn-excel-custom:hover {
+        background-color: #1a6039;
+        color: white;
+    }
+
+    /* Modal container */
+    .import-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1055;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Backdrop */
+    .import-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.45);
+    }
+
+    /* Modal box */
+    .import-modal-box {
+        position: relative;
+        background: #fff;
+        width: 90%;
+        max-width: 420px;
+        padding: 24px 20px;
+        border-radius: 12px;
+        box-shadow: 0 15px 40px rgba(0,0,0,.25);
+        z-index: 2;
+    }
+
+    /* GIF container */
+    .import-gif-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 14px;
+    }
+
+    /* GIF image */
+    .import-gif {
+        width: 100%;
+        max-width: 140px;
+        height: auto;
+    }
+
+    /* Smaller screens */
+    @media (max-width: 576px) {
+        .import-gif {
+            max-width: 110px;
+        }
+    }
+    /* Responsive */
+    @media (max-width: 576px) {
+        .import-modal-box {
+            width: 95%;
+            padding: 20px 16px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .content-wrapper,
+        .content-wrapper .row,
+        .content-wrapper .card,
+        .content-wrapper .card-body,
+        .content-wrapper .grid-margin,
+        .content-wrapper .icons-list {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .stu-form-section {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding: 10px !important;
+        }
+
+        .content-wrapper .card {
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .content-wrapper {
+            background-color: #f9f9f9 !important;
+        }
+    }
 </style>
 
-<div class="content-wrapper">
-  <div class="row">
-    <div class="col-lg-12 grid-margin">
-      <div class="card">
-                        
-            <div class="container-fluid py-4">
+    <div class="card">
+        <div class="card-body">
+
+                <div class="flex-grow-1 p-3 border rounded-3 d-flex align-items-center justify-content-between">
+                    <div>
+                        <i class="fas fa-chalkboard fs-4 me-3" style="color: var(--primary-accent);"></i>
+                        <span class="fw-semibold text-dark">Select Class</span>
+                    </div>
+
+                    <select id="class_id" class="form-select w-auto" required>
+                        <option value=""> Select Class </option>
+                        @foreach($classes as $class)
+                            <option value="{{ $class->id }}">
+                                {{ $class->class_name }}
+                                @if($class->section) - {{ $class->section }} @endif
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
                 <div class="card roster-card mx-auto bg-white border-0 mb-4" style="max-width: 1300px;">
                     <div class="card-body p-4">
@@ -175,11 +246,43 @@
                            
                         </div>
                         <small class="text-muted mt-3 d-block">
-                            * <a href="#" download class="text-muted">Click</a> to Download default template.
+                            * <a href="{{ route('tenant.student.download-template') }}" download class="text-muted">Click</a> to Download default template.
                         </small>
                     </div>
                 </div>
+        </div>
+    </div>
 
+    <!-- Import Progress Modal -->
+    <div id="importModal" class="import-modal d-none">
+        <!-- Backdrop -->
+        <div class="import-backdrop"></div>
+        <!-- Modal Box -->
+        <div class="import-modal-box">
+            <!-- GIF SECTION -->
+            <div class="import-gif-wrapper">
+                <img src="{{ asset('kawach/Password Authentication.gif') }}" alt="Importing..." class="import-gif">
+            </div>
+            <!-- Student Name -->
+            <div id="currentStudentName" class="fw-semibold text-primary mb-3 text-center" style="min-height:22px"> Preparing import... </div>
+            <!-- Progress Bar -->
+            <div class="progress mb-2" style="height:12px;">
+                <div id="importProgressBar"
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    style="width:0%">
+                </div>
+            </div>
+            <!-- Percentage -->
+            <div id="importProgressText"
+                class="small text-muted text-center">
+                0%
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-body">
                 <!-- Main Editable Roster Card -->
                 <div class="card roster-card mx-auto bg-white border-0" style="max-width: 1300px;">
                     <div class="card-body p-4 p-md-4">
@@ -262,22 +365,136 @@
 
                     </div>
                 </div>
-            </div>
-
-
-            </div>
         </div>
     </div>
-</div>
 
 
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const fileInput = document.getElementById('csvFileInput');
+    const classSelect = document.getElementById('class_id');
+
+    const modal = document.getElementById('importModal');
+    const progressBar = document.getElementById('importProgressBar');
+    const progressText = document.getElementById('importProgressText');
+    const currentStudent = document.getElementById('currentStudentName');
+
+    if (!fileInput || !modal) {
+        console.error('Import elements missing');
+        return;
+    }
+
+    fileInput.addEventListener('change', function () {
+
+        if (!this.files.length) return;
+
+        const file = this.files[0];
+        const ext = file.name.split('.').pop().toLowerCase();
+
+        if (ext !== 'csv') {
+            showError('Invalid File', 'Only CSV files allowed');
+            this.value = '';
+            return;
+        }
+
+        const classId = classSelect.value;
+        if (!classId) {
+            showError('Validation Error', 'Please select a class');
+            this.value = '';
+            return;
+        }
+
+        modal.classList.remove('d-none');
+        progressBar.style.width = '0%';
+        progressText.textContent = '0%';
+        currentStudent.textContent = 'Reading CSV...';
+
+        /* Frontend CSV progress */
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const lines = e.target.result
+                .split('\n')
+                .map(l => l.trim())
+                .filter(Boolean);
+
+            const headers = lines.shift().split(',');
+            const nameIndex = headers.indexOf('first_name');
+
+            let total = lines.length;
+            let processed = 0;
+
+            const interval = setInterval(() => {
+                if (processed >= total) {
+                    clearInterval(interval);
+                    return;
+                }
+
+                const cols = lines[processed].split(',');
+                const name = cols[nameIndex] || 'Student';
+
+                processed++;
+                const percent = Math.min(Math.round((processed / total) * 90), 90);
+
+                progressBar.style.width = percent + '%';
+                progressText.textContent = percent + '%';
+                currentStudent.textContent = `Importing: ${name}`;
+            }, 120);
+        };
+
+        reader.readAsText(file);
+
+        /* Upload to backend */
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('class_id', classId);
+
+        fetch('{{ route("tenant.student.csvbulkStore") }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            progressBar.style.width = '100%';
+            progressText.textContent = '100%';
+            currentStudent.textContent = 'Import completed';
+
+            setTimeout(() => {
+                modal.classList.add('d-none');
+            }, 900);
+
+            if (data.success) {
+                showSuccess('Import Complete', data.message);
+            } else {
+                showError('Import Failed', data.message);
+            }
+
+            fileInput.value = '';
+        })
+        .catch(err => {
+            modal.classList.add('d-none');
+            showError('Error', 'Upload failed');
+            console.error(err);
+        });
+    });
+
+});
+</script>
+
+
+
+<script>
+
     const rosterBody = document.getElementById('rosterBody');
     const addRowBtn = document.getElementById('addRowBtn');
     const submitRosterBtn = document.getElementById('submitRosterBtn');
     const totalStudentsSpan = document.getElementById('totalStudents');
-    
-    // --- Utility Functions ---
 
     // Function to update the row numbers and total count
     function updateRoster() {
@@ -405,6 +622,9 @@
     window.onload = function() {
         updateRoster();
     };
+
+
+
 </script>
 
 
